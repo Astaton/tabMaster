@@ -1,0 +1,50 @@
+body {
+    background-color: #f1f1f1;
+}
+
+.saveGroupHeader {
+    margin-left: 40px;
+}
+
+#saveGroupBtn {
+    margin-left: 40px;
+}
+
+#tabList {
+    list-style-type: none;
+    max-width: 800px;
+}
+
+.faviconImg {
+    height: 32px;
+    width: 32px;
+    padding: 5px;
+}
+
+.tabInfo {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    background-color: #cecece;
+    border-radius: 5px;
+}
+
+.urlInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 3px;
+    width: calc(100% - 45px);
+}
+
+.tabInfoText {
+    margin: 2px 0px;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* 
+.tabInfoText:first-child {
+    border-bottom: 1px solid black;
+} */
