@@ -24,12 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             const tabCountElem = document.getElementById('tabCount');
+            const tabsSelectedCountElem = document.getElementById('tabsSelectedCount');
+            tabsSelectedCountElem.innerHTML = `There are currently ${newGroup.length} tabs in this group.`
             tabCountElem.innerHTML = `<span id="tabCount">${newGroup.length}</span>`
         });
 
         const tabClick = (index) => {
             newGroup[index].inGroup = !newGroup[index].inGroup;
             const tabElem = document.getElementById(`tab${index}`);
+            const tabsSelectedCountElem = document.getElementById('tabsSelectedCount');
+            tabsSelectedCountElem.innerHTML = `There are currently ${newGroup.reduce((acc, curr) => { return curr.inGroup? ++acc : acc},0)} tabs in this group.`
 
             if (newGroup[index].inGroup) {
                 tabElem.classList.remove('tabUnselected');
