@@ -29,6 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const tabClick = (index) => {
             newGroup[index].inGroup = !newGroup[index].inGroup;
+            const tabElem = document.getElementById(`tab${index}`);
+
+            if (newGroup[index].inGroup) {
+                tabElem.classList.remove('tabUnselected');
+            } else {
+                tabElem.classList.add('tabUnselected');
+            }
+
             console.log(`tab ${newGroup[index].title} will ${newGroup[index].inGroup? "be" : "not be"} saved to the group`);
         }
         
