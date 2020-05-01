@@ -7,12 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
             newGroup = [];
             tabs.forEach(({favIconUrl, title, url}, index) => {
                 if(title !== "TabMaster Save Group" && title !== "TabMaster Manage Groups" && title !== "Extensions"){
-                    $('#tabList').append(`<li class='tabInfo' id=tab${index}><img class='faviconImg' src=${favIconUrl ? favIconUrl : 'default.png'} /><div class='urlInfo' > <p class='tabInfoText'>Tab Title: ${title}</p> <p class='tabInfoText'>Tab Url: ${url}</p></div><li>`);
+                    const tabListElem = document.getElementById('tabList');
+                    const tabElem = document.createElement('li');
+                    tabElem.classList.add('tabInfo');
+                    tabElem.id = `tab${index}`;
+                    tabElem.innerHTML = `
+                        <img class='faviconImg' src=${favIconUrl ? favIconUrl : 'default.png'} />
+                        <div class='urlInfo' > 
+                            <p class='tabInfoText'>Tab Title: ${title}</p> 
+                            <p class='tabInfoText'>Tab Url: ${url}</p>
+                        </div>
+                    `
+                    tabListElem.appendChild(tabElem);
                     document.getElementById(`tab${index}`).addEventListener('click', () => tabClick(index), false);
                     newGroup.push({favIconUrl, title, url, inGroup: true});
                 }
             });
-            $('#tabCount').replaceWith(`<span id="tabCount">${newGroup.length}</span>`);
+            const tabCountElem = document.getElementById('tabCount');
+            tabCountElem.innerHTML = `<span id="tabCount">${newGroup.length}</span>`
         });
 
         const tabClick = (index) => {
