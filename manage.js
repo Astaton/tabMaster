@@ -28,6 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 delete updatedGroupNames[groupName];
                 console.log("group names after deleting key: ", updatedGroupNames);
                 chrome.storage.sync.set({'tabMasterGroupNames': updatedGroupNames}, () => {
+                    const notifOptions = {
+                        type: 'basic',
+                        iconUrl: 'icon48.png',
+                        title: 'Deleted!',
+                        message: `Tab group '${groupName} has been deleted'`
+                    }
+                    chrome.notifications.create('deleteNotif', notifOptions);
                     console.log('deletion complete');
                     chrome.tabs.getCurrent((tab) => {
                         console.log("The current tab is: ", tab);
