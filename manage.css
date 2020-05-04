@@ -1,0 +1,78 @@
+.optionsText {
+  cursor: pointer;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #00000000;
+  transition: all 0.5s ease-in-out;
+}
+
+.modalText {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0px 1px 1px black, 0px -1px 1px black, 1px 0px 1px black,
+    -1px 0px 1px black;
+}
+
+.showModal {
+  display: flex;
+  visibility: visible;
+  background-color: #0000007d;
+  backdrop-filter: blur(1.5px);
+}
+
+.confirmBtnsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#confirmDelete {
+  margin-right: 15px;
+}
+
+#cancelDelete {
+  margin-left: 15px;
+}
+
+.contentContainer {
+  min-width: 700px;
+  width: 75%;
+  margin: auto;
+}
+
+.groupNameText {
+  margin: 0px;
+}
+
+#groupsList {
+  padding-left: 0px;
+}
+
+.groupListItem {
+  list-style-type: none;
+  margin-bottom: 12px;
+}
+
+.optionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.groupContainer {
+  background-color: #cecece;
+  border-radius: 5px;
+  box-shadow: 2px 3px 3px black;
+  padding: 5px;
+}
