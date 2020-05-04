@@ -69,6 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 chrome.storage.sync.set({
                     'tabMasterGroupNames': tabGroups,
                     [groupName]: newGroup,
+                }, () => {
+                    const notifOptions = {
+                        type: 'basic',
+                        iconUrl: 'icon48.png',
+                        title: 'Success!',
+                        message: `Tab group '${groupName}' has been saved`
+                    }
+                    chrome.notifications.create('savedNotif', notifOptions);
                 });
             }
         });
