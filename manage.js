@@ -1,8 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
   const viewTabs = (groupName) => {
+    const groupTabsListElem = document.createElement('ul');
+    groupTabsListElem.id = `${groupName}TabList`;
+    groupTabsListElem.classList.add("groupTabList");
     console.log(`group "%s" was clicked`, groupName);
     chrome.storage.sync.get(groupName, (storage) => {
-      console.log("retrieved from storage: ", storage[groupName]);
+        console.log("retrieved from storage: ", storage[groupName]);
+        storage[groupName].forEach(({favIconUrl, title, url}) => {
+            const groupTabElem = document.createElement('li');
+            groupTabElem.innerHTML = `
+                <img class='faviconImg' src=${favIconUrl ? favIconUrl : 'default.png'} />
+                <div class='urlInfo' > 
+                    <p class='tabInfoText'>Tab Title: ${title}</p> 
+                    <p class='tabInfoText'>Tab Url: ${url}</p>
+                </div>
+                `
+            groupTabsListElem.appendChild(groupTabElem);
+        });
       //<li class="groupTabListItem"></li>
     });
   };
@@ -75,16 +89,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const groupElem = document.createElement("li");
       groupElem.classList.add("groupListItem");
       groupElem.innerHTML = `
-                <div class="groupContainer">
-                    <h2 class="groupNameText">${groupName}</h2>
-                    <div class="optionsContainer">
-                        <p class="optionsText" id="open${groupName}">Open this group</p>
-                        <p class="optionsText" id="view${groupName}">View tabs in this group</p>
-                        <p class="optionsText" id="delete${groupName}">Delete this group</p>
-                    <div/>
+                <div class="groupWrapper">
+                    <div class="groupContainer">
+                        <h2 class="groupNameText">${groupName}</h2>
+                        <div class="optionsContainer">
+                            <p class="optionsText" id="open${groupName}">Open this group</p>
+                            <p class="optionsText" id="view${groupName}">View tabs in this group</p>
+                            <p class="optionsText" id="delete${groupName}">Delete this group</p>
+                        <div/>
+                    </div>
+                    <div id="${groupName}TabListContainer">
+                        <ul class="groupTabList" id="${groupName}TabList">
+                        </ul>
+                    </div>
                 </div>
-                <ul class="groupTabList" id="${groupName}TabList">
-                </ul>
             `;
       groupListElem.appendChild(groupElem);
       const openGroupElem = document.getElementById(`open${groupName}`);

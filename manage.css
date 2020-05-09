@@ -70,6 +70,17 @@
   justify-content: space-between;
 }
 
+.groupWrapper {
+  overflow: hidden;
+}
+
+.groupTabList {
+  position: relative;
+  margin-top: -176px;
+  z-index: -1;
+  transition: all 1s ease-in-out;
+}
+
 .groupContainer {
   background-color: #cecece;
   border-radius: 5px;
