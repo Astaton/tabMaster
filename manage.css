@@ -1,0 +1,133 @@
+body {
+  background-color: #f1f1f1;
+}
+
+.optionsText {
+  cursor: pointer;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #00000000;
+  transition: all 0.5s ease-in-out;
+}
+
+.modalText {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0px 1px 1px black, 0px -1px 1px black, 1px 0px 1px black,
+  -1px 0px 1px black;
+}
+
+.showModal {
+  display: flex;
+  visibility: visible;
+  background-color: #0000007d;
+  backdrop-filter: blur(1.5px);
+}
+
+.headerText {
+  text-align: center;
+}
+
+.confirmBtnsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#confirmDelete {
+  margin-right: 15px;
+}
+
+#cancelDelete {
+  margin-left: 15px;
+}
+
+.contentContainer {
+  min-width: 700px;
+  width: 75%;
+  margin: auto;
+}
+
+.groupNameText {
+  margin: 0px 15px;
+}
+
+#groupsList {
+  padding-left: 0px;
+}
+
+.groupListItem {
+  list-style-type: none;
+  margin-bottom: 12px;
+}
+
+.optionsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+.groupTabList {
+  position: relative;
+  z-index: -1;
+  list-style-type: none;
+  padding-right: 2px;
+}
+
+.groupContainer {
+  background-color: #cecece;
+  border-radius: 5px;
+  box-shadow: 2px 3px 3px black;
+  padding: 5px;
+}
+
+.faviconImg {
+  height: 32px;
+  width: 32px;
+  padding: 5px;
+}
+
+.tabInfo {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  background-color: #cecece;
+  height: 52px;
+  border-radius: 5px;
+  opacity: 1;
+  box-shadow: 2px 3px 3px black;
+  transition: opacity .25s ease-in-out;
+}
+
+.hidden {
+  /* visibility: hidden; */
+  opacity: 0;
+}
+
+.tabInfoText {
+  margin: 2px 0px;
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.urlInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 3px;
+  width: calc(100% - 45px);
+}
