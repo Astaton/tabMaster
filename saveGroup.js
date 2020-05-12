@@ -70,6 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     'tabMasterGroupNames': tabGroups,
                     [groupName]: newGroup,
                 }, () => {
+                    const subContextMenuItem = {
+                        "id": groupName,
+                        "parentId": "addTab",
+                        "title": `Add to ${groupName}`,
+                        "contexts": ["page"] 
+                    }
+                    chrome.contextMenus.create(subContextMenuItem);
                     const notifOptions = {
                         type: 'basic',
                         iconUrl: 'icon48.png',
