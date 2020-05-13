@@ -2,6 +2,49 @@ body {
     background-color: #f1f1f1;
 }
 
+.modal {
+    position: absolute;
+    display: flex;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #00000000;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .modalText {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0px 1px 1px black, 0px -1px 1px black, 1px 0px 1px black,
+    -1px 0px 1px black;
+  }
+
+  .showModal {
+    display: flex;
+    visibility: visible;
+    background-color: #0000007d;
+    backdrop-filter: blur(1.5px);
+  }
+
+  .confirmBtnsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #confirmBtn {
+    margin-right: 15px;
+  }
+  
+  #cancelBtn {
+    margin-left: 15px;
+  }
+
 .contentContainer {
     min-width: 700px;
     width: 75%;

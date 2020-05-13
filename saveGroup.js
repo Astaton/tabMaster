@@ -1,5 +1,6 @@
 //popup.js is the script that runs in the extension popup html.
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('saveGroup loading')
     
     let newGroup;
     chrome.windows.getCurrent((currentWindow) => {
@@ -46,10 +47,59 @@ document.addEventListener('DOMContentLoaded', () => {
         
     });
 
-    
+
+    const saveGroup = (groupName, tabGroups) => {
+        tabGroups[groupName] = true;
+        chrome.storage.sync.set({
+            'tabMasterGroupNames': tabGroups,
+            [groupName]: newGroup,
+        }, () => {
+            const subContextMenuItem = {
+                "id": groupName,
+                "parentId": "addTab",
+                "title": `Add to ${groupName}`,
+                "contexts": ["page"] 
+            }
+            chrome.contextMenus.create(subContextMenuItem);
+            const notifOptions = {
+                type: 'basic',
+                iconUrl: 'icon48.png',
+                title: 'Success!',
+                message: `Tab group '${groupName}' has been saved`
+            }
+            chrome.notifications.create('savedNotif', notifOptions, () => {
+                chrome.tabs.getCurrent(({id: currentTabId}) => {
+                    chrome.tabs.remove(currentTabId);
+                });
+            });
+        });
+    }
+
+
+    const enter = ({keyCode}) => {
+        console.log('key pressed on input', keyCode)
+        if (keyCode === 13) {
+            checkCanSaveGroup();
+        }
+    }
+
+
     const clicked = () => {
-        const groupName = document.getElementById("groupName").value;
-        console.log('groupName is: ', groupName);
+        checkCanSaveGroup();
+    }
+
+    const closeModal = () => {
+        const confirmOverwriteModalElem = document.getElementById('confirmOverwriteModal');
+        confirmOverwriteModalElem.classList.remove('showModal');
+    }
+
+
+    const checkCanSaveGroup = (overwrite = false) => {
+        const groupName = document.getElementById("groupNameInput").value;
+        if(!groupName){
+            alert("This group needs to have a name.");
+            return;
+        }
         newGroup =   newGroup.filter(tab => tab.inGroup === true);
         console.log("The filtered newGroup is: ", newGroup);
 
@@ -58,39 +108,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if(tabGroups === undefined) tabGroups = {};
             console.log("tabMasterGroupNames: ", tabGroups);
     
-            if(!groupName){
-                alert("This group needs to have a name.");
-                return;
-            }
-            if(tabGroups[groupName]){
-                alert("This group exists, setup func to overwrite");
+            if(tabGroups[groupName] && !overwrite){
+                const groupNameSpanElem = document.getElementById('groupNameSpan');
+                groupNameSpanElem.innerText = groupName;
+                const confirmOverwriteModalElem = document.getElementById('confirmOverwriteModal');
+                confirmOverwriteModalElem.classList.add('showModal');
             } else {
-                tabGroups[groupName] = true;
-                chrome.storage.sync.set({
-                    'tabMasterGroupNames': tabGroups,
-                    [groupName]: newGroup,
-                }, () => {
-                    const subContextMenuItem = {
-                        "id": groupName,
-                        "parentId": "addTab",
-                        "title": `Add to ${groupName}`,
-                        "contexts": ["page"] 
-                    }
-                    chrome.contextMenus.create(subContextMenuItem);
-                    const notifOptions = {
-                        type: 'basic',
-                        iconUrl: 'icon48.png',
-                        title: 'Success!',
-                        message: `Tab group '${groupName}' has been saved`
-                    }
-                    chrome.notifications.create('savedNotif', notifOptions);
-                });
+                saveGroup(groupName, tabGroups);
             }
         });
-    
-
     }
 
+
+    document.getElementById('groupNameInput').addEventListener('keyup', enter, false);
     document.getElementById('saveGroupBtn').addEventListener('click', clicked, false);
+    document.getElementById('cancelBtn').addEventListener('click', closeModal, false);
+    document.getElementById('confirmBtn').addEventListener('click', () => checkCanSaveGroup(true), false);
 
 }, false);
