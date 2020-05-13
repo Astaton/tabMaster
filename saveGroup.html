@@ -6,15 +6,19 @@
         <link rel="stylesheet" href="saveGroup.css">
     </head>
     <body>
-        <a href="manage.html">Manage Groups</a>
-        <button id="saveGroupBtn">Save Group</button>
-        <label for="groupName">Group Name</label>
-        <input id="groupName" type="text" name="groupName" />
-        <h2 class="saveGroupHeader">These are the <span id="tabCount"></span> tabs open in this window</h2>
-        <h3 class="saveGroupHeader">Click on tabs to add or remove them from the group.</h3>
-        <h3 class="saveGroupHeader" id="tabsSelectedCount"></h3>
-        <ul id="tabList">
-        </ul>
+        <div class="contentContainer">
+            <a href="manage.html">Manage Groups</a>
+            <h2 class="saveGroupHeader">These are the <span id="tabCount"></span> tabs open in this window</h2>
+            <div class="controlsContainer">
+                <h3 class="saveGroupHeader contorlsHeaderText" id="tabsSelectedCount"></h3>
+                <h4 class="saveGroupHeader contorlsInstructionText">Click on tabs to add or remove them from the group. When all of the tabs you want to save in the group are selected enter a name for the group and click the 'Save Group' button or press the 'Enter' key.</h4>
+                <button id="saveGroupBtn">Save Group</button>
+                <label for="groupName">Group Name</label>
+                <input id="groupNameInput" type="text" name="groupName" />
+            </div>
+            <ul id="tabList">
+            </ul>
+        </div>
         <script src="saveGroup.js" charset="utf-8"></script>
     </body>
 </html>
