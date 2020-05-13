@@ -6,6 +6,20 @@
         <link rel="stylesheet" href="saveGroup.css">
     </head>
     <body>
+        <!-- Modal Start -->
+    <div id="confirmOverwriteModal" class="modal">
+        <div class="confirmationContainer">
+          <p class="modalText">
+            There is already a group with the name '<span id="groupNameSpan"></span>'
+          </p>
+          <P class="modalText">Do you want to overwrite this group?</P>
+          <div class="confirmBtnsContainer">
+            <button id="confirmBtn">Confirm</button>
+            <button id="cancelBtn">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <!-- Modal End -->
         <div class="contentContainer">
             <a href="manage.html">Manage Groups</a>
             <h2 class="saveGroupHeader">These are the <span id="tabCount"></span> tabs open in this window</h2>
