@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
               type: "basic",
               iconUrl: "icon48.png",
               title: "Deleted!",
-              message: `Tab group '${groupName} has been deleted'`,
+              message: `Tab group '${groupName}' has been deleted`,
             };
             chrome.notifications.create("deleteNotif", notifOptions);
             chrome.tabs.getCurrent((tab) => {
