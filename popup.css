@@ -1,0 +1,30 @@
+body {
+  margin-bottom: -9px;
+  background-color: coral;
+}
+
+.popupMenuContainer {
+  width: 200px;
+  padding: 0px;
+  margin: -9px;
+  user-select: none;
+}
+.popupMenuItem {
+  margin: 0px;
+  width: 100%;
+  background-color: white;
+}
+
+.popupMenuItem:hover {
+  background-color: rgb(225, 229, 230);
+}
+
+.popupMenuText {
+  /* text-align: center; */
+  margin: 0px;
+  padding: 3px 10px;
+}
+
+.horizontalRule {
+  margin: 0px;
+}
