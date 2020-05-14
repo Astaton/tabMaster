@@ -110,7 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             chrome.notifications.create("deleteNotif", notifOptions);
             chrome.tabs.getCurrent((tab) => {
-              chrome.tabs.reload(tab.id);
+              chrome.contextMenus.remove(groupName, () => {
+                chrome.tabs.reload(tab.id);
+              });
             });
           }
         );
