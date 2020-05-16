@@ -1,13 +1,31 @@
 body {
   margin-bottom: -9px;
-  background-color: coral;
+}
+
+.hidden {
+  display: none;
 }
 
 .popupMenuContainer {
-  width: 200px;
+  min-width: 200px;
   padding: 0px;
   margin: -9px;
   user-select: none;
+}
+
+.popupMenuHeaderContainer {
+  width: 100%;
+}
+
+.popupMenuHeaderText {
+  text-align: center;
+  font-weight: bold;
+  margin: 2px 0px;
+}
+
+.divider {
+  border: .5px solid rgb(202, 194, 194);
+  margin: 0px;
 }
 
 .popupMenuItem {
@@ -21,9 +39,9 @@ body {
 }
 
 .popupMenuText {
-  /* text-align: center; */
   margin: 0px;
   padding: 3px 10px;
+  white-space: nowrap;
 }
 
 .horizontalRule {

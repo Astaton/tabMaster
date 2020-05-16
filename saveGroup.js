@@ -1,6 +1,5 @@
 //popup.js is the script that runs in the extension popup html.
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('saveGroup loading')
     
     let newGroup;
     chrome.windows.getCurrent((currentWindow) => {
@@ -41,26 +40,26 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 tabElem.classList.add('tabUnselected');
             }
-
-            console.log(`tab ${newGroup[index].title} will ${newGroup[index].inGroup? "be" : "not be"} saved to the group`);
         }
         
     });
 
 
-    const saveGroup = (groupName, tabGroups) => {
+    const saveGroup = (groupName, tabGroups, overwrite) => {
         tabGroups[groupName] = true;
         chrome.storage.sync.set({
             'tabMasterGroupNames': tabGroups,
             [groupName]: newGroup,
         }, () => {
-            const subContextMenuItem = {
-                "id": groupName,
-                "parentId": "addTab",
-                "title": `Add to ${groupName}`,
-                "contexts": ["page"] 
+            if (!overwrite) {
+                const subContextMenuItem = {
+                    "id": groupName,
+                    "parentId": "addTab",
+                    "title": `Add to ${groupName}`,
+                    "contexts": ["page"] 
+                }
+                chrome.contextMenus.create(subContextMenuItem);
             }
-            chrome.contextMenus.create(subContextMenuItem);
             const notifOptions = {
                 type: 'basic',
                 iconUrl: 'icon48.png',
@@ -77,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     const enter = ({keyCode}) => {
-        console.log('key pressed on input', keyCode)
         if (keyCode === 13) {
             checkCanSaveGroup();
         }
@@ -101,12 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         newGroup =   newGroup.filter(tab => tab.inGroup === true);
-        console.log("The filtered newGroup is: ", newGroup);
 
         chrome.storage.sync.get('tabMasterGroupNames', (storage) => {
-            let tabGroups = storage.tabMasterGroupNames;
-            if(tabGroups === undefined) tabGroups = {};
-            console.log("tabMasterGroupNames: ", tabGroups);
+            let tabGroups = storage.tabMasterGroupNames || {};
+            // if(tabGroups === undefined) tabGroups = {};
     
             if(tabGroups[groupName] && !overwrite){
                 const groupNameSpanElem = document.getElementById('groupNameSpan');
@@ -114,11 +110,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 const confirmOverwriteModalElem = document.getElementById('confirmOverwriteModal');
                 confirmOverwriteModalElem.classList.add('showModal');
             } else {
-                saveGroup(groupName, tabGroups);
+                saveGroup(groupName, tabGroups, overwrite);
             }
         });
     }
 
+
+    // const testRemoval = () => {
+    //     const windowId = document.getElementById("groupNameInput").value;
+
+    //     chrome.storage.local.remove(windowId, () => {
+    //         console.log('removed', windowId);
+    //         chrome.storage.local.get(['tabGroupWindows'], (storage) => {
+    //             const tabGroupWindows = storage.tabGroupWindows || {};
+    //             delete tabGroupWindows[windowId];
+    //               chrome.storage.local.set({tabGroupWindows: tabGroupWindows}, () => {
+    //                 console.log('its done ');
+    //               });
+    //         });
+    //       });
+    // }
+
+    // // Remove after testing
+    // document.getElementById('testBtn').addEventListener('click', () => testRemoval());
 
     document.getElementById('groupNameInput').addEventListener('keyup', enter, false);
     document.getElementById('saveGroupBtn').addEventListener('click', clicked, false);

@@ -68,6 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
           const tabGroupWindows = storage.tabGroupWindows || {};
           tabGroupWindows[currentWindow] = groupName;
           chrome.storage.local.set({tabGroupWindows}, () => {
+            chrome.windows.onRemoved.addListener( function clearStorage(closedWindow) {
+              if (closedWindow === currentWindow) {
+                chrome.storage.local.get(['tabGroupWindows'], (storage) => {
+                  const currentTabGroupWindows = storage.tabGroupWindows || {};
+                  delete currentTabGroupWindows[closedWindow];
+                  chrome.windows.onRemoved.removeListener(clearStorage);
+                  chrome.storage.local.set({tabGroupWindows: currentTabGroupWindows});
+                });
+              }
+            });
             chrome.tabs.getCurrent(({id: currentTab}) => {
               chrome.tabs.remove(currentTab);
             });
