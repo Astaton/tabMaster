@@ -1,20 +1,19 @@
 {
-    "name": "tabMaster",
+    "name": "tabTamer",
     "version": "1.0.0",
     "manifest_version": 2,
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["contents.js"]
-        }
-    ],
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+      },
     "background": {
         "scripts": ["eventPage.js"],
         "persistent": false
     },
     "browser_action": {
         "default_popup": "popup.html",
-        "default_title": "tabMaster"
+        "default_title": "tabTamer"
     },
     "permissions": [
         "tabs",
